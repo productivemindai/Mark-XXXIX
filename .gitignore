@@ -1,0 +1,26 @@
+# Runtime secrets and local state
+config/api_keys.json
+memory/long_term.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs and generated files
+*.log
+screenshots/
+downloads/
+.jarvis_profiles/
