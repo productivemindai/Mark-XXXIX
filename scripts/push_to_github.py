@@ -8,9 +8,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REMOTE = "https://github.com/FaithMakes/Mark-XXXIX.git"
-OWNER = "FaithMakes"
-REPO = "Mark-XXXIX"
+DEFAULT_REMOTE = os.environ.get("GITHUB_REMOTE_URL", "").strip()
 
 
 def run(cmd: list[str], *, env: dict | None = None, check: bool = True) -> subprocess.CompletedProcess:
@@ -26,7 +24,11 @@ def run(cmd: list[str], *, env: dict | None = None, check: bool = True) -> subpr
 
 
 def main() -> None:
-    print(f"Publishing {ROOT} to {OWNER}/{REPO}")
+    print(f"Publishing {ROOT}")
+    remote = DEFAULT_REMOTE or input("GitHub remote URL, e.g. https://github.com/YOUR_USERNAME/Mark-XXXIX.git: ").strip()
+    if not remote.startswith("https://github.com/") or not remote.endswith(".git"):
+        raise SystemExit("Remote must look like: https://github.com/YOUR_USERNAME/REPO.git")
+
     token = os.environ.get("GITHUB_TOKEN") or getpass.getpass("GitHub token: ").strip()
     if not token:
         raise SystemExit("No token provided.")
@@ -34,9 +36,9 @@ def main() -> None:
     run(["git", "branch", "-M", "main"])
     remotes = run(["git", "remote"], check=False).stdout.split()
     if "origin" not in remotes:
-        run(["git", "remote", "add", "origin", REMOTE])
+        run(["git", "remote", "add", "origin", remote])
     else:
-        run(["git", "remote", "set-url", "origin", REMOTE])
+        run(["git", "remote", "set-url", "origin", remote])
 
     # Use an askpass helper so the token is not embedded in the remote URL or printed.
     askpass = ROOT / ".git" / "github_askpass.sh"

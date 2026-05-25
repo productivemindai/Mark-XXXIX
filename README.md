@@ -115,15 +115,14 @@ This checks Python syntax, required files, secret hygiene, and JSON config templ
 
 ## GitHub publishing
 
-If this is a downloaded ZIP, initialize git or connect it to your GitHub repo:
+Create a repository under your own GitHub account first, then publish with the helper script:
 
 ```bash
-git init
-git add .
-git commit -m "feat: personalize MARK XXXIX JARVIS system"
-git branch -M main
-git remote add origin https://github.com/FaithMakes/Mark-XXXIX.git
-git push -u origin main
+export GITHUB_REMOTE_URL="https://github.com/YOUR_USERNAME/Mark-XXXIX.git"
+export GITHUB_TOKEN="YOUR_FINE_GRAINED_TOKEN"
+python scripts/push_to_github.py
 ```
 
-If the remote is private, configure GitHub credentials first.
+The helper keeps the token out of the git remote URL and removes its temporary credential helper after pushing.
+
+If the remote is private, the token must have access to that specific repo.
