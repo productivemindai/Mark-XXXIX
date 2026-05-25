@@ -12,7 +12,8 @@ try:
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE    = 0.05
     _PYAUTOGUI = True
-except ImportError:
+except Exception as e:
+    _PYAUTOGUI_ERROR = e
     _PYAUTOGUI = False
 
 try:
@@ -610,7 +611,11 @@ def computer_settings(
     session_memory=None,
 ) -> str:
     if not _PYAUTOGUI:
-        return "pyautogui is not installed. Run: pip install pyautogui"
+        detail = f" ({_PYAUTOGUI_ERROR})" if "_PYAUTOGUI_ERROR" in globals() else ""
+        return (
+            "PyAutoGUI is unavailable. Install it and make sure a desktop/display session "
+            f"is active before using computer settings controls{detail}."
+        )
 
     params      = parameters or {}
     raw_action  = params.get("action", "").strip()

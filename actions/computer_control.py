@@ -14,7 +14,8 @@ try:
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE    = 0.05
     _PYAUTOGUI = True
-except ImportError:
+except Exception as e:
+    _PYAUTOGUI_ERROR = e
     _PYAUTOGUI = False
 
 try:
@@ -66,7 +67,11 @@ def _safe_screenshot_path(requested: str | None) -> Path:
 
 def _require_pyautogui():
     if not _PYAUTOGUI:
-        raise RuntimeError("PyAutoGUI not installed. Run: pip install pyautogui")
+        detail = f" ({_PYAUTOGUI_ERROR})" if "_PYAUTOGUI_ERROR" in globals() else ""
+        raise RuntimeError(
+            "PyAutoGUI is unavailable. Install it and make sure a desktop/display session is active"
+            f" before using computer-control actions{detail}."
+        )
 
 _FIRST_NAMES = [
     "Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Drew", "Quinn",

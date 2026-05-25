@@ -1,6 +1,6 @@
 # MARK XXXIX — Personal JARVIS System
 
-A personalized JARVIS-style desktop assistant for Sensei and ProductiveMind.Ai.
+A personalized JARVIS-style desktop assistant for Timothy and ProductiveMind.Ai.
 
 This project is based on the Mark-XXXIX assistant codebase and has been adapted into a safer personal starter system with local profile configuration, secret-safe setup, and clearer operating instructions.
 
@@ -26,7 +26,7 @@ Current defaults:
 
 - Assistant: JARVIS
 - Version: MARK XXXIX
-- Operator: Sensei
+- Operator: Timothy
 - Organization: ProductiveMind.Ai
 - Tone: calm, concise, practical, and supportive
 

@@ -9,8 +9,14 @@ from pathlib import Path
 from datetime import datetime
 from urllib.parse import quote_plus
 
-import pyautogui
 import numpy as np
+
+try:
+    import pyautogui
+    _PYAUTOGUI = True
+except Exception as e:
+    _PYAUTOGUI_ERROR = e
+    _PYAUTOGUI = False
 
 try:
     import requests

@@ -9,7 +9,8 @@ try:
     pyautogui.FAILSAFE = True
     pyautogui.PAUSE    = 0.06
     _PYAUTOGUI = True
-except ImportError:
+except Exception as e:
+    _PYAUTOGUI_ERROR = e
     _PYAUTOGUI = False
 
 try:
@@ -35,7 +36,11 @@ def _get_os() -> str:
 
 def _require_pyautogui():
     if not _PYAUTOGUI:
-        raise RuntimeError("PyAutoGUI not installed. Run: pip install pyautogui")
+        detail = f" ({_PYAUTOGUI_ERROR})" if "_PYAUTOGUI_ERROR" in globals() else ""
+        raise RuntimeError(
+            "PyAutoGUI is unavailable. Install it and make sure a desktop/display session is active"
+            f" before using desktop messaging controls{detail}."
+        )
 
 
 def _paste_text(text: str) -> None:
