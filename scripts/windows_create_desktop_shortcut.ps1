@@ -1,14 +1,15 @@
 # Create a Windows desktop shortcut for MARK XXXIX / JARVIS.
-# Run from project root:
+# You can run this from any folder:
 #   powershell -ExecutionPolicy Bypass -File .\scripts\windows_create_desktop_shortcut.ps1
 
 $ErrorActionPreference = "Stop"
 
-if (-not (Test-Path ".\main.py")) {
-    Write-Error "Please run this script from the project root folder where main.py exists."
-}
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ProjectRoot = (Resolve-Path (Join-Path $ScriptDir "..")).Path
 
-$ProjectRoot = (Resolve-Path ".").Path
+if (-not (Test-Path (Join-Path $ProjectRoot "main.py"))) {
+    Write-Error "Could not locate main.py from script path: $ScriptDir"
+}
 $RunScript = Join-Path $ProjectRoot "scripts\windows_run.ps1"
 if (-not (Test-Path $RunScript)) {
     Write-Error "Missing launcher script: $RunScript"

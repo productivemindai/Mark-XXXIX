@@ -1,11 +1,15 @@
 # Run MARK XXXIX / JARVIS on Windows.
-# Run from project root:
+# You can run this from any folder:
 #   powershell -ExecutionPolicy Bypass -File .\scripts\windows_run.ps1
 
 $ErrorActionPreference = "Stop"
 
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$ProjectRoot = (Resolve-Path (Join-Path $ScriptDir "..")).Path
+Set-Location $ProjectRoot
+
 if (-not (Test-Path ".\main.py")) {
-    Write-Error "Please run this script from the project root folder where main.py exists."
+    Write-Error "Could not locate main.py from script path: $ScriptDir"
 }
 
 $VenvPython = ".\.venv\Scripts\python.exe"
