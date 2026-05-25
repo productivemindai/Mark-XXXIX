@@ -1154,7 +1154,7 @@ class MainWindow(QMainWindow):
         lay.addStretch()
 
         right_col = QVBoxLayout(); right_col.setSpacing(2)
-        self._clock_lbl = QLabel("00:00:00")
+        self._clock_lbl = QLabel("12:00:00 AM")
         self._clock_lbl.setFont(QFont("Courier New", 14, QFont.Weight.Bold))
         self._clock_lbl.setStyleSheet(f"color: {C.PRI}; background: transparent;")
         self._clock_lbl.setAlignment(Qt.AlignmentFlag.AlignRight)
@@ -1168,7 +1168,7 @@ class MainWindow(QMainWindow):
         return w
 
     def _tick_clock(self):
-        self._clock_lbl.setText(time.strftime("%H:%M:%S"))
+        self._clock_lbl.setText(time.strftime("%I:%M:%S %p").lstrip("0"))
         self._date_lbl.setText(time.strftime("%a %d %b %Y"))
 
     def _build_left_panel(self) -> QWidget:

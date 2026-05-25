@@ -68,6 +68,16 @@ python main.py
 
 On Linux you may need system audio/UI packages depending on your desktop environment. On Windows, the Windows-only packages are installed automatically from `requirements.txt` markers.
 
+## Windows desktop shortcut
+
+JARVIS no longer installs an automatic startup task. To launch it manually from your desktop, create a Windows shortcut:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\windows_create_desktop_shortcut.ps1
+```
+
+This creates `JARVIS MARK XXXIX.lnk` on the current user's Desktop. Double-click that shortcut whenever you want to start JARVIS.
+
 ## Gemini API key
 
 You need a Gemini API key for the real-time voice model.
@@ -103,6 +113,8 @@ config/api_keys.json     Local secret config, ignored by git
 actions/                 Tool/action modules
 memory/                  Local long-term memory manager
 scripts/validate_project.py  Local validation helper
+scripts/windows_run.ps1     Windows manual launcher
+scripts/windows_create_desktop_shortcut.ps1  Windows desktop shortcut creator
 ```
 
 ## Validate before committing

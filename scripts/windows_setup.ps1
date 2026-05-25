@@ -52,5 +52,7 @@ if (-not (Test-Path ".\config\api_keys.json")) {
 
 Write-Host ""
 Write-Host "Setup complete." -ForegroundColor Green
-Write-Host "To run JARVIS:" -ForegroundColor Cyan
+Write-Host "To create a desktop shortcut:" -ForegroundColor Cyan
+Write-Host "  powershell -ExecutionPolicy Bypass -File .\scripts\windows_create_desktop_shortcut.ps1" -ForegroundColor White
+Write-Host "To run JARVIS manually:" -ForegroundColor Cyan
 Write-Host "  powershell -ExecutionPolicy Bypass -File .\scripts\windows_run.ps1" -ForegroundColor White
