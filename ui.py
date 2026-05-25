@@ -1457,8 +1457,22 @@ class _RootShim:
         pass
 
 
+def _restore_pyqt_platform_plugin_path() -> None:
+    """Keep OpenCV from hijacking Qt's platform plugin path on Linux."""
+    try:
+        import PyQt6
+
+        plugin_path = Path(PyQt6.__file__).resolve().parent / "Qt6" / "plugins" / "platforms"
+        if plugin_path.exists():
+            os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = str(plugin_path)
+    except Exception:
+        # If this fails, let Qt raise its normal startup error.
+        pass
+
+
 class JarvisUI:
     def __init__(self, face_path: str, size=None):
+        _restore_pyqt_platform_plugin_path()
         self._app = QApplication.instance() or QApplication(sys.argv)
         self._app.setStyle("Fusion")
         self._win = MainWindow(face_path)
